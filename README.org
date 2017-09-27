@@ -1,0 +1,5 @@
+* Integration Example with Swagger, Angular, and Spring Boot #
+
+** Links
+
+- http://www.svlada.com/jwt-token-authentication-with-spring-boot/
