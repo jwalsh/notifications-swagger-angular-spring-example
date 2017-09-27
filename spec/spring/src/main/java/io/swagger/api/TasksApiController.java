@@ -1,9 +1,8 @@
 package io.swagger.api;
 
 import io.swagger.model.ISEError;
-import io.swagger.model.Login;
 import io.swagger.model.ModelError;
-import io.swagger.model.Token;
+import io.swagger.model.Notification;
 
 import io.swagger.annotations.*;
 
@@ -24,13 +23,24 @@ import javax.validation.Valid;
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2017-09-27T17:51:23.206-04:00")
 
 @Controller
-public class LoginApiController implements LoginApi {
+public class TasksApiController implements TasksApi {
 
 
 
-    public ResponseEntity<Token> loginPost(@ApiParam(value = ""  )  @Valid @RequestBody Login body) {
+    public ResponseEntity<List<Notification>> tasksGet() {
         // do some magic!
-        return new ResponseEntity<Token>(HttpStatus.OK);
+        return new ResponseEntity<List<Notification>>(HttpStatus.OK);
+    }
+
+    public ResponseEntity<Notification> tasksIdGet( @Min(1)@ApiParam(value = "the target notification",required=true ) @PathVariable("id") Long id) {
+        // do some magic!
+        return new ResponseEntity<Notification>(HttpStatus.OK);
+    }
+
+    public ResponseEntity<Notification> tasksIdPut( @Min(1)@ApiParam(value = "the target notification",required=true ) @PathVariable("id") Long id,
+        @ApiParam(value = ""  )  @Valid @RequestBody Notification body) {
+        // do some magic!
+        return new ResponseEntity<Notification>(HttpStatus.OK);
     }
 
 }

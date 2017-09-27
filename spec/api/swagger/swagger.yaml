@@ -131,6 +131,81 @@ paths:
       security:
         - JWT: []
 
+
+  /tasks:
+    get:
+      summary: Get all tasks allowed for a user
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Notification'
+        '405':
+          description: User role prohibits access
+          schema:
+            $ref: '#/definitions/ModelError'
+        '500':
+          description: Invalid token
+          schema:
+            $ref: '#/definitions/ModelError'
+      security:
+        - JWT: []
+
+  /tasks/{id}:
+    parameters:
+      - name: id
+        in: path
+        description: the target notification
+        required: true
+        minimum: 1
+        type: integer
+        format: int64
+    get:
+      summary: Get a single notifcation
+      description: |
+        Get an action
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            $ref: '#/definitions/Notification'
+        '405':
+          description: User role prohibits access
+          schema:
+            $ref: '#/definitions/ModelError'
+        '500':
+          description: Invalid token
+          schema:
+            $ref: '#/definitions/ISEError'
+      security:
+        - JWT: []
+    put:
+      summary: Update action
+      description: |
+        Update an action
+      parameters:
+        - name: body
+          in: body
+          schema:
+            $ref: '#/definitions/Notification'
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            $ref: '#/definitions/Notification'
+        '405':
+          description: User role prohibits access
+          schema:
+            $ref: '#/definitions/ModelError'
+        '500':
+          description: Invalid token
+          schema:
+            $ref: '#/definitions/ISEError'
+      security:
+        - JWT: []
+
 definitions:
 
   ModelError:
@@ -198,7 +273,6 @@ definitions:
         minLength: 64
         pattern: '^(eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9\.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiYWRtaW4iOnRydWUsImp0aSI6IjE3YjU4MTU5LTYxMTAtNGZiZS05NGFlLTZlODYwOTkxOGVlZiIsImlhdCI6MTUwNjU0MjU2MiwiZXhwIjoxNTA2NTQ2MTYyfQ\.j4AtCkY8aonx1hymY0TKIzvMEsEnHHKfjQMrhNtw7V8)$'
 
-
   Notification:
     title: Notification
     type: object
@@ -218,3 +292,16 @@ definitions:
         type: string
       _links:
         type: object
+
+  Task:
+    title: Task
+    type: object
+    required:
+      - description
+    properties:
+      id:
+        type: integer
+        format: int64
+        minimum: 1
+      description:
+        type: string

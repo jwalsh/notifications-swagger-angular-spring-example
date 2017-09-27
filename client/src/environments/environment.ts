@@ -5,8 +5,8 @@
 
 export const environment = {
   production: false,
-  api_url: 'http://localhost:4010/' // mock
-  // api_url: 'http://localhost:8080/' // dev
-  // api_url: 'https://api.test.example.com/' // test
+  // api_url: 'http://localhost:4010' // mock
+  api_url: 'http://localhost:8080' // dev
+  // api_url: 'https://api.test.example.com' // test
 
 };

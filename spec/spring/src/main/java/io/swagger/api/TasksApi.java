@@ -25,10 +25,10 @@ import javax.validation.constraints.*;
 import javax.validation.Valid;
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2017-09-27T17:51:23.206-04:00")
 
-@Api(value = "notifications", description = "the notifications API")
-public interface NotificationsApi {
+@Api(value = "tasks", description = "the tasks API")
+public interface TasksApi {
 
-    @ApiOperation(value = "Get all notifications allowed for a user", notes = "", response = Notification.class, responseContainer = "List", authorizations = {
+    @ApiOperation(value = "Get all tasks allowed for a user", notes = "", response = Notification.class, responseContainer = "List", authorizations = {
         @Authorization(value = "JWT")
     }, tags={  })
     @ApiResponses(value = { 
@@ -36,11 +36,11 @@ public interface NotificationsApi {
         @ApiResponse(code = 405, message = "User role prohibits access", response = ModelError.class),
         @ApiResponse(code = 500, message = "Invalid token", response = ModelError.class) })
     
-    @RequestMapping(value = "/notifications",
+    @RequestMapping(value = "/tasks",
         produces = { "application/json" }, 
         consumes = { "application/json" },
         method = RequestMethod.GET)
-    ResponseEntity<List<Notification>> notificationsGet();
+    ResponseEntity<List<Notification>> tasksGet();
 
 
     @ApiOperation(value = "Get a single notifcation", notes = "Get an action ", response = Notification.class, authorizations = {
@@ -51,11 +51,11 @@ public interface NotificationsApi {
         @ApiResponse(code = 405, message = "User role prohibits access", response = ModelError.class),
         @ApiResponse(code = 500, message = "Invalid token", response = ISEError.class) })
     
-    @RequestMapping(value = "/notifications/{id}",
+    @RequestMapping(value = "/tasks/{id}",
         produces = { "application/json" }, 
         consumes = { "application/json" },
         method = RequestMethod.GET)
-    ResponseEntity<Notification> notificationsIdGet( @Min(1)@ApiParam(value = "the target notification",required=true ) @PathVariable("id") Long id);
+    ResponseEntity<Notification> tasksIdGet( @Min(1)@ApiParam(value = "the target notification",required=true ) @PathVariable("id") Long id);
 
 
     @ApiOperation(value = "Update action", notes = "Update an action ", response = Notification.class, authorizations = {
@@ -66,10 +66,10 @@ public interface NotificationsApi {
         @ApiResponse(code = 405, message = "User role prohibits access", response = ModelError.class),
         @ApiResponse(code = 500, message = "Invalid token", response = ISEError.class) })
     
-    @RequestMapping(value = "/notifications/{id}",
+    @RequestMapping(value = "/tasks/{id}",
         produces = { "application/json" }, 
         consumes = { "application/json" },
         method = RequestMethod.PUT)
-    ResponseEntity<Notification> notificationsIdPut( @Min(1)@ApiParam(value = "the target notification",required=true ) @PathVariable("id") Long id,@ApiParam(value = ""  )  @Valid @RequestBody Notification body);
+    ResponseEntity<Notification> tasksIdPut( @Min(1)@ApiParam(value = "the target notification",required=true ) @PathVariable("id") Long id,@ApiParam(value = ""  )  @Valid @RequestBody Notification body);
 
 }

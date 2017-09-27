@@ -9,33 +9,57 @@ import javax.validation.Valid;
 import javax.validation.constraints.*;
 
 /**
- * Links
+ * Task
  */
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2017-09-27T17:51:23.206-04:00")
 
-public class Links   {
-  @JsonProperty("_links")
-  private Object links = null;
+public class Task   {
+  @JsonProperty("id")
+  private Long id = null;
 
-  public Links links(Object links) {
-    this.links = links;
+  @JsonProperty("description")
+  private String description = null;
+
+  public Task id(Long id) {
+    this.id = id;
     return this;
   }
 
    /**
-   * Get links
-   * @return links
+   * Get id
+   * minimum: 1
+   * @return id
+  **/
+  @ApiModelProperty(value = "")
+
+ @Min(1)
+  public Long getId() {
+    return id;
+  }
+
+  public void setId(Long id) {
+    this.id = id;
+  }
+
+  public Task description(String description) {
+    this.description = description;
+    return this;
+  }
+
+   /**
+   * Get description
+   * @return description
   **/
   @ApiModelProperty(required = true, value = "")
   @NotNull
 
 
-  public Object getLinks() {
-    return links;
+  public String getDescription() {
+    return description;
   }
 
-  public void setLinks(Object links) {
-    this.links = links;
+  public void setDescription(String description) {
+    this.description = description;
   }
 
 
@@ -47,21 +71,23 @@ public class Links   {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    Links links = (Links) o;
-    return Objects.equals(this.links, links.links);
+    Task task = (Task) o;
+    return Objects.equals(this.id, task.id) &&
+        Objects.equals(this.description, task.description);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(links);
+    return Objects.hash(id, description);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class Links {\n");
+    sb.append("class Task {\n");
     
-    sb.append("    links: ").append(toIndentedString(links)).append("\n");
+    sb.append("    id: ").append(toIndentedString(id)).append("\n");
+    sb.append("    description: ").append(toIndentedString(description)).append("\n");
     sb.append("}");
     return sb.toString();
   }

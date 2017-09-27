@@ -28,7 +28,7 @@
     "install-prism": "curl https://raw.githubusercontent.com/stoplightio/prism/master/install.sh | sh",
     "migrate": "npm run test && rm -rf typescript-angular2/* ../client/src/app/api/* && npm run codegen && rsync -avh typescript-angular2/ ../client/src/app/api/",
     "mock": "prism run --mock --list --spec api/swagger/swagger.yaml",
-    "start": "./node_modules/.bin/swagger project edit -p 10010",
+    "start": "./node_modules/.bin/swagger project edit",
     "test": "./node_modules/.bin/swagger project test"
   }
 }

@@ -13,7 +13,7 @@ import javax.validation.constraints.*;
 /**
  * ModelError
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2017-09-27T16:33:35.088-04:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2017-09-27T17:51:23.206-04:00")
 
 public class ModelError   {
   @JsonProperty("message")

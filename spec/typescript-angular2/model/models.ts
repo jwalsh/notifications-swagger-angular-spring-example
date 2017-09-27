@@ -3,4 +3,5 @@ export * from './Links';
 export * from './Login';
 export * from './ModelError';
 export * from './Notification';
+export * from './Task';
 export * from './Token';
