@@ -1,0 +1,220 @@
+swagger: "2.0"
+info:
+  version: "0.0.1"
+  title: Notification Example
+host: localhost:8080
+basePath: /
+schemes:
+  - http
+  - https
+consumes:
+  - application/json
+produces:
+  - application/json
+securityDefinitions:
+  JWT:
+    description: 'Token response from POST /login'
+    type: apiKey
+    name: X-Auth-Token
+    in: header
+
+paths:
+  /:
+    get:
+      summary: Overview of available links
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            $ref: '#/definitions/Links'
+
+  /login:
+    post:
+      description: 'Allow users to log in and get token'
+      parameters:
+        - name: body
+          in: body
+          schema:
+            $ref: '#/definitions/Login'
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            $ref: '#/definitions/Token'
+          examples:
+            application/json:
+              token: "aaa.bbb.ccc"
+        '400':
+          description: 'Bad Request'
+          schema:
+            $ref: '#/definitions/ModelError'
+        '401':
+          description: 'Invalid username or password'
+          schema:
+            $ref: '#/definitions/ModelError'
+        '500':
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/ISEError'
+
+  /notifications:
+    get:
+      summary: Get all notifications allowed for a user
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Notification'
+        '405':
+          description: User role prohibits access
+          schema:
+            $ref: '#/definitions/ModelError'
+        '500':
+          description: Invalid token
+          schema:
+            $ref: '#/definitions/ModelError'
+      security:
+        - JWT: []
+
+  /notifications/{id}:
+    parameters:
+      - name: id
+        in: path
+        description: the target notification
+        required: true
+        minimum: 1
+        type: integer
+        format: int64
+    get:
+      summary: Get a single notifcation
+      description: |
+        Get an action
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            $ref: '#/definitions/Notification'
+        '405':
+          description: User role prohibits access
+          schema:
+            $ref: '#/definitions/ModelError'
+        '500':
+          description: Invalid token
+          schema:
+            $ref: '#/definitions/ISEError'
+      security:
+        - JWT: []
+    put:
+      summary: Update action
+      description: |
+        Update an action
+      parameters:
+        - name: body
+          in: body
+          schema:
+            $ref: '#/definitions/Notification'
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            $ref: '#/definitions/Notification'
+        '405':
+          description: User role prohibits access
+          schema:
+            $ref: '#/definitions/ModelError'
+        '500':
+          description: Invalid token
+          schema:
+            $ref: '#/definitions/ISEError'
+      security:
+        - JWT: []
+
+definitions:
+
+  ModelError:
+    title: ModelError
+    type: object
+    properties:
+      message:
+        type: string
+      error:
+        type: string
+      errors:
+        type: array
+        items:
+          type: string
+
+
+  ISEError:
+    title: ModelError
+    type: object
+    properties:
+      timestamp:
+        type: string
+      status:
+        type: string
+      error:
+        type: string
+      exception:
+        type: string
+      message:
+        type: string
+      path:
+        type: string
+
+  Links:
+    title: Links
+    type: object
+    required:
+      - _links
+    properties:
+      _links:
+        type: object
+
+  Login:
+    title: Login
+    type: object
+    required:
+      - username
+      - password
+    properties:
+      username:
+        type: string
+        example: 'test@example.com'
+      password:
+        type: string
+        example: 'password'
+
+  Token:
+    title: Token
+    type: object
+    required:
+      - token
+    properties:
+      token:
+        type: string
+        minLength: 64
+        pattern: '^(eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9\.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiYWRtaW4iOnRydWUsImp0aSI6IjE3YjU4MTU5LTYxMTAtNGZiZS05NGFlLTZlODYwOTkxOGVlZiIsImlhdCI6MTUwNjU0MjU2MiwiZXhwIjoxNTA2NTQ2MTYyfQ\.j4AtCkY8aonx1hymY0TKIzvMEsEnHHKfjQMrhNtw7V8)$'
+
+
+  Notification:
+    title: Notification
+    type: object
+    description: 'Your Notifications'
+    required:
+      - id
+      - name
+      - type
+    properties:
+      id:
+        type: integer
+        format: int64
+        minimum: 1
+      name:
+        type: string
+      type:
+        type: string
+      _links:
+        type: object

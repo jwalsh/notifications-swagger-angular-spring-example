@@ -1,0 +1,34 @@
+{
+  "name": "spec",
+  "version": "0.0.1",
+  "private": true,
+  "description": "New Swagger API Project",
+  "keywords": [],
+  "author": "",
+  "license": "",
+  "main": "app.js",
+  "dependencies": {
+    "hapi": "^10.0.0",
+    "swagger-hapi": "^0.1.0"
+  },
+  "devDependencies": {
+    "should": "^7.1.0",
+    "supertest": "^1.0.0",
+    "swagger": "^0.7.5"
+  },
+  "scripts": {
+    "codegen": "rm -rf codegen-typescript codegen-spring && npm run codegen-typescript && npm run codegen-spring",
+    "codegen-clojure": "java -jar swagger-codegen-cli.jar generate -l clojure -i api/swagger/swagger.yaml -o clojure",
+    "codegen-dynamic-html": "java -jar swagger-codegen-cli.jar generate -l dynamic-html -i api/swagger/swagger.yaml -o dynamic-html",
+    "codegen-spring": "java -jar swagger-codegen-cli.jar generate -l spring -i api/swagger/swagger.yaml -o spring",
+    "codegen-typescript": "java -jar swagger-codegen-cli.jar generate   -c config.json -l typescript-angular2 -i api/swagger/swagger.yaml -o typescript-angular2",
+    "docs": "npm run codegen-dynamic-html && cd dynamic-html && node main.js",
+    "html": "java -jar swagger-codegen-cli.jar generate -l html -i api/swagger/swagger.yaml -o html",
+    "install-codegen": "wget http://central.maven.org/maven2/io/swagger/swagger-codegen-cli/2.2.3/swagger-codegen-cli-2.2.3.jar -O swagger-codegen-cli.jar",
+    "install-prism": "curl https://raw.githubusercontent.com/stoplightio/prism/master/install.sh | sh",
+    "migrate": "npm run test && rm -rf typescript-angular2/* ../client/src/app/api/* && npm run codegen && rsync -avh typescript-angular2/ ../client/src/app/api/",
+    "mock": "prism run --mock --list --spec api/swagger/swagger.yaml",
+    "start": "./node_modules/.bin/swagger project edit -p 10010",
+    "test": "./node_modules/.bin/swagger project test"
+  }
+}
